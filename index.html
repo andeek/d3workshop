@@ -1496,7 +1496,8 @@ circle.on("mouseover", function() {
 
 A trick!
 ```javascript
-circle.title("A trick!");
+circle.append("title")
+    .text("A trick!");
 ```
 
 ]
@@ -1506,17 +1507,23 @@ layout: true
 class: inverse
 ---
 #Your turn
-Navigate your (Chrome or Firefox) browser to https://jsfiddle.net/andeek/????/ and complete the following.
+Navigate your (Chrome or Firefox) browser to https://jsfiddle.net/andeek/hbpmzd49/ and complete the following.
 
 1. Add a tool tip to your `mpg` scatterplot containing information about the points.
 2. Add a behavior to the points such that they get larger if hovered over.
 
+.footnote[
+Helpful resources:
+- https://github.com/mbostock/d3/wiki/Selections#on
+]
 ---
 layout: true
 class: inverse
 ---
 #Your turn (solution)
 
+<br/>
+<iframe width="100%" height="400" src="//jsfiddle.net/andeek/6tk0q4o7/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 ---
 layout: true
 class: center, middle, inverse

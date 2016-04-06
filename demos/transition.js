@@ -4,6 +4,8 @@ var button = d3.select(".transition")
     .append("button")
     .text("Click me!");
 
+d3.select(".transition").append("br");
+
 var div = d3.select(".transition")
     .append("div")
     .style("background-color", "white")
