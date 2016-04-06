@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>D3 Workshop at NORC</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body {
+        font-family: 'Droid Serif';
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 2em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .highlight { color: #FF2A08; }
+      .large { font-size: 2em; }
+      .small code { font-size: .6em; }
+      a, a > code {
+        color: #009C9B;
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+
+      /* Slide-specific styling */
+      #slide-inverse .footnote {
+        bottom: 12px;
+        left: 20px;
+      }
+      #slide-how .slides {
+        font-size: 0.9em;
+        position: absolute;
+        top:  151px;
+        right: 140px;
+      }
+      #slide-how .slides h3 {
+        margin-top: 0.2em;
+      }
+      #slide-how .slides .first, #slide-how .slides .second {
+        padding: 1px 20px;
+        height: 90px;
+        width: 120px;
+        -moz-box-shadow: 0 0 10px #777;
+        -webkit-box-shadow: 0 0 10px #777;
+        box-shadow: 0 0 10px #777;
+      }
+      #slide-how .slides .first {
+        background: #fff;
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        z-index: 1;
+      }
+      #slide-how .slides .second {
+        position: relative;
+        background: #fff;
+        z-index: 0;
+      }
+
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
+      
+      /* D3 demos */
+      div.whatis rect {
+        fill: none;
+        pointer-events: all;
+      }
+
+      div.whatis .node {
+        fill: #000;
+      }
+
+      div.whatis .cursor {
+        fill: none;
+        stroke: brown;
+        pointer-events: none;
+      }
+
+      div.whatis .link {
+        stroke: #999;
+      }
+
+      div.standards rect {
+        fill: none;
+        pointer-events: all;
+      }
+
+      div.standards circle {
+        fill: none;
+        stroke-width: 2.5px;
+      }
+      
+      
+      div.dom .node {
+    		cursor: pointer;
+    	}
+
+    	div.dom .node circle {
+    	  fill: #fff;
+    	  stroke: steelblue;
+    	  stroke-width: 3px;
+    	}
+
+    	div.dom .node text {
+    	  font: 12px sans-serif;
+    	}
+
+    	div.dom .link {
+    	  fill: none;
+    	  stroke: #ccc;
+    	  stroke-width: 2px;
+    	}
+      
+      div.bar_chart .bar {
+        fill: steelblue;
+      }
+
+      div.bar_chart .axis text {
+        font: 10px sans-serif;
+      }
+
+      div.bar_chart .axis path,
+      div.bar_chart .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+
+      div.bar_chart .x.axis path {
+        display: none;
+      }
+      
+      div.us_map path {
+        fill: #ccc;
+        stroke: #fff;
+        stroke-width: .5px;
+      }
+
+      div.us_map path:hover {
+        fill: red;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+layout: true
+class: center, middle, inverse
+---
+
+#D3 Workshop at NORC (Part 1)
+
+Andee Kaplan <ajkaplan@iastate.edu>  
+Yongheng Lin <lin-yongheng@norc.org>
+---
+layout: false
+##Agenda
+
+1. What is D3?
+1. D3 in context 
+1. Getting started 
+1. Selections
+1. Data
+1. Plot elements
+1. Interactivity
+
+---
+layout: true
+class: center, middle, inverse
+---
+
+#What is D3?
+---
+layout: false
+.left-column[
+  ## What?
+]
+.right-column[
+
+  D3 is a JavaScript library written by [Mike Bostock](https://bost.ocks.org/mike/) with the goal of manipulating web documents based on .highlight[data]. D3 stands for **D**ata **D**riven **D**ocuments.
+  
+  .whatis[
+  
+  ]
+]
+---
+
+layout: true
+class: center, middle, inverse
+---
+
+#D3 in context  
+
+---
+layout: false
+.left-column[
+  ## Context
+  ### Web programming standards
+]
+.right-column[
+
+  D3 uses existing web standards (HTML, SVG, and CSS) to make visualization in the browser .highlight[easy] and .highlight[flexible], but ultimitely ties the image to the data underlying.
+  
+  .standards[
+  
+  ]
+]
+---
+layout: false
+.left-column[
+  ## Context
+  ### Web programming standards
+]
+.right-column[
+###HTML
+HTML is a markup language for describing web documents (web pages).
+
+ - HTML stands for **H**yper **T**ext **M**arkup **L**anguage
+ - A markup language is a set of markup tags
+ - HTML documents are described by HTML tags
+ - Each HTML tag describes different document content
+
+The `<div>` and `<span>` tags are special because browers don’t apply default styles to them, so HTML authors can use them to define custom groups.
+
+The basic outline of an HTML page is something like this:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+  CONTENT GOES HERE  
+  </body>
+</html>
+```
+
+
+]
+---
+layout: false
+.left-column[
+  ## Context
+  ### Web programming standards
+  ### The DOM
+]
+.right-column[
+When a web page is loaded, the browser creates a **D**ocument **O**bject **M**odel of the page.
+
+The HTML DOM model is constructed as a tree of Objects.
+
+.dom[
+
+]
+]
+---
+layout: false
+.left-column[
+  ## Context
+  ### Web programming standards
+  ### The DOM
+]
+.right-column[
+D3 maps data to objects. The task of visualization is one of .highlight[transformation], not .highlight[representation].
+
+So, to visualize data we construct a .highlight[DOM] from data. We must also update the DOM whenever the data changes, either due to dynamic (e.g., realtime) data or interaction.
+
+In a visualization, each entity (or data point) has a corresponding element (or graphical mark). D3 helps you maintain this mapping from data to elements using a clean API.
+
+```JavaScript
+// D3 Selection API
+d3.select('p').size(); // select() only finds one
+// 1
+d3.selectAll('p').size(); // selectAll() finds all
+// 4
+var reds = d3.selectAll('.red');
+// [ > Array[1] ]
+reds.text();
+// "Red paragraph"
+```
+]
+---
+layout: false
+.left-column[
+  ## Context
+  ### Web programming standards
+  ### The DOM
+  ### Vector graphics
+]
+.right-column[
+SVG stands for **S**calable **V**ector **G**raphics.
+
+SVG defines vector-based graphics in XML format.
+
+In HTML5, you can embed SVG elements directly into your HTML pages.
+
+```HTML
+<svg width="100" height="100">
+  <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+</svg>
+```
+<svg width="100" height="100">
+  <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+</svg>
+
+We use SVG elements to .highlight[draw] visually in the DOM, and through the use of D3, this becomes tied to data.
+
+The `<g>` SVG tag is special (similar to `<div>` and `<span>`) because again browers don’t apply default styles to them, so HTML authors can use them to define custom groups.
+  
+]
+
+---
+layout: false
+.left-column[
+  ## Context
+  ### Web programming standards
+  ### The DOM
+  ### Vector graphics
+]
+.right-column[
+###Useful SVG Tags
+- Rectangle `<rect>`
+- Circle `<circle>`
+- Ellipse `<ellipse>`
+- Line `<line>`
+- Polyline `<polyline>`
+- Polygon `<polygon>`
+- Path `<path>`
+
+We can .highlight[style] each of these basic elements using another web standard, .highlight[**C**ascading **S**tyle**s**heets].
+]
+---
+layout: false
+.left-column[
+  ## Context
+  ### Web programming standards
+  ### The DOM
+  ### Vector graphics
+  ### CSS
+]
+.right-column[
+CSS is a stylesheet language that describes the presentation of an HTML (or XML) document.
+
+CSS styles (also know as selectors) are typically applied to HTML (or SVG) tags based on their name, class, or ID.
+
+ Selector |	Example	| Example description 
+:--------|:--------|:-----------------
+ .class |	.intro | Selects all elements with class="intro" 
+ #id	| #firstname | Selects the element with id="firstname"	
+ *	| *	| Selects all elements 
+ element	| p	| Selects all `<p>` elements 
+]
+---
+layout: false
+.left-column[
+  ## Context
+  ### Web programming standards
+  ### The DOM
+  ### Vector graphics
+  ### CSS
+]
+.right-column[
+  Here are some simple CSS rules and how they apply.
+  ```CSS
+  p {
+    color: red;
+  }
+
+  /* Applied to all tags with the class "yellow" */
+  .blue {
+    background: blue;
+  }
+
+  /* Applied to the tag with the id "myid" */
+  #myid {
+    font-style: italic;
+  }
+  ```
+  <style>
+    div#css_example p {
+      color: red;
+    }
+    div#css_example .blue {
+      background: blue;
+    }
+    div#css_example #myid {
+      font-style: italic;
+    }
+  </style>
+  <div id=css_example>
+    <div>
+      <p>Normal paragraph</p>
+      <p class="blue">Blue paragraph</p>
+    </div>
+    <ol>
+      <li id="myid">Unique element</li>
+      <li>Another list element</li>
+    </ol>
+  </div>
+  
+  The possibilities are (almost) endless; this is what we will use to manipulate the style of the objects tied to our data.
+  ]
+---
+layout: false
+.left-column[
+  ## Context
+  ### Web programming standards
+  ### The DOM
+  ### Vector graphics
+  ### CSS
+  ### JavaScript and JQuery
+]
+.right-column[
+.highlight[JavaScript] is a dynamic scripting language that can instruct the browser to make changes to a page after it has already loaded.
+
+JavaScript can change...
+- HTML Content
+- HTML Attributes
+- HTML Styles (CSS)
+- Validate Data
+
+Scripts can be included directly in HTML, between two script tags
+```javascript
+<body>
+    <script type="text/javascript">
+        alert("Hello, world!");
+    </script>
+</body>
+```
+
+or stored in a separate file, and then referenced somewhere the HTML
+```javascript
+<head>
+    <title>Page Title</title>
+    <script type="text/javascript" src="myscript.js"></script>
+</head>
+```
+]
+---
+layout: false
+.left-column[
+  ## Context
+  ### Web programming standards
+  ### The DOM
+  ### Vector graphics
+  ### CSS
+  ### JavaScript and JQuery
+]
+.right-column[
+.highlight[JQuery] is a JavaScript library that makes things like HTML document traversal and manipulation, event handling, and animation, much simpler.
+
+Knowing JQuery is not necessary to learn D3, but can make our lives a little easier.
+
+####DOM Traversal and Manipulation
+Get the `<button>` element with the class 'continue' and change its HTML to 'Next Step...'
+```javascript
+$( "button.continue" ).html( "Next Step..." )
+```
+####Event Handling
+Show the `#banner-message` element that is hidden with  `display:none` in its CSS when any button in `#button-container` is clicked.
+
+```javascript
+var hiddenBox = $( "#banner-message" );
+$( "#button-container button" ).on( "click", function( event ) {
+  hiddenBox.show();
+});
+```
+]
+---
+layout: true
+class: inverse
+---
+#Your turn
+
+Navigate your (Chrome or Firefox) browser to https://jsfiddle.net/andeek/6vu02co1/ and complete the following.
+
+1. Change the text in the `container` `div` to be purple.
+1. Create an SVG rectangle within your the group `rect_group` of size 100x50px.
+1. Style your SVG rectangle with purple fill and orange outline.
+1. Add behavior to the button `hide_svg` that hides or shows the svg rectangle on click.
+
+.footnote[
+Helpful resources:
+- [HTML objects and attributes](http://www.w3schools.com/html/html_elements.asp)
+- [CSS](http://www.w3schools.com/css/css_syntax.asp)
+- [SVG](http://www.w3schools.com/svg/svg_rect.asp)
+- [JavaScript](http://www.w3schools.com/js/default.asp)
+- [JQuery](http://api.jquery.com/toggle/)
+
+]
+---
+#Your turn (solution)
+
+<br/>
+<iframe width="100%" height="400" src="//jsfiddle.net/andeek/9ggrwuLz/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+---
+layout: true
+class: center, middle, inverse
+---
+#Getting started
+
+---
+layout: false
+
+.left-column[
+##Getting started
+###Setup
+]
+.right-column[
+This workshop will work heavily with examples and exercises hosted on http://jsfiddle.com, which allows us to focus on the machinations of D3, rather than the complication of hosting a site.
+
+However, it's important to know how to setup your project for hosting.
+Create a project folder to work within. Create a simple HTML page within your project folder named index.html. Additionally, create a folder to contain your JavaScript (D3) files. Your folder structure should now look something like this:
+
+```
+project-folder/
+    scripts/
+      my-d3-script.js
+    index.html
+    
+``` 
+
+This is a rough guideline, you can also create a folder for CSS files if so desired, etc. 
+
+] 
+
+ 
+---
+layout: false
+
+.left-column[
+##Getting started
+###Setup
+]
+.right-column[    
+Now paste the following into your HTML file, so it references D3 and includes your JavaScript code.
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+    </head>
+    <body>
+      ...
+      <script src="http://d3js.org/d3.v3.min.js"></script>
+      <script src="scripts/my-d3-script.js"></script>
+    </body>
+</html> 
+```
+]
+---
+
+layout: false
+
+.left-column[
+##Getting started
+###Setup
+###Viewing
+]
+.right-column[    
+In some cases, you can just open your HTML file in a web browser to view it. However, when loading external data sources, it is more reliable to run a local web server and view your page from http://localhost:8000/. 
+
+A quick, temporary server is provided in Python, and can be utilized from the terminal as such.
+
+```
+python -m SimpleHTTPServer
+```
+
+]
+---
+layout: true
+class: center, middle, inverse
+---
+#Selections
+
+---
+layout: false
+
+.left-column[
+##Selections
+###Selectors
+]
+.right-column[  
+Selections of elements are D3’s atomic operand.
+
+CSS provides a handy way to refer to specific elements. CSS assigns style rules via selectors.
+
+```HTML
+#foo        // <any id="foo">
+foo         // <foo>
+.foo        // <any class="foo">
+[foo=bar]   // <any foo="bar">
+foo bar     // <foo><bar></foo>
+foo.bar     // <foo class="bar">
+foo#bar     // <foo id="bar">
+```
+
+D3 provides shorthand for selecting and manipulating (like JQuery). Selections are arrays.
+
+```javascript
+// select all <circle> elements
+var circle = d3.selectAll("circle");
+
+// set some attributes and styles
+circle.attr("cx", 20);
+circle.attr("cy", 12);
+circle.attr("r", 24);
+circle.style("fill", "red");
+```
+]
+???
+- The attr and style methods set attributes and styles, respectively. 
+- Method chaining allows shorter (and more readable) code.
+---
+layout: false
+
+.left-column[
+##Selections
+###Selectors
+###Append
+]
+.right-column[  
+`selection.append` creates new elements, appends, and selects.
+
+With one element selected, adds one element.
+```javascript
+// select the <body> element
+var body = d3.select("body");
+
+// add an <h1> element
+var h1 = body.append("h1");
+h1.text("Hello!");
+```
+
+With many elements selected, adds one element to each.
+```javascript
+// select all <section> elements
+var section = d3.selectAll("section");
+
+// add an <h1> element to each
+var h1 = section.append("h1");
+h1.text("Hello!");
+```
+]
+---
+layout: false
+
+.left-column[
+##Selections
+###Selectors
+###Append
+]
+.right-column[  
+##Question:  
+How to append many elements at once?
+
+]
+--
+.right-column[
+##Answer:
+#.highlight[Data] (next)
+]
+---
+layout: true
+class: inverse
+---
+#Your turn
+
+Navigate your (Chrome or Firefox) browser to https://jsfiddle.net/andeek/Lqquo4k5/ and complete the following using .highlight[D3].
+
+1. Add a circle to each section element.
+1. Outline each circle in black.
+1. Color the first circle red, the second yellow, and the third green.
+
+
+.footnote[
+Helpful resources:
+- https://github.com/mbostock/d3/wiki/Selections
+]
+---
+#Your turn (solution)
+
+<br/>
+<iframe width="100%" height="400" src="//jsfiddle.net/andeek/f6umafnd/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe><br/>
+
+---
+#Your turn (alternative solution)
+
+<br/>
+<iframe width="100%" height="400" src="//jsfiddle.net/andeek/7d1x9tqh/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+---
+layout: true
+class: center, middle, inverse
+---
+#Data
+
+---
+layout: false
+.left-column[
+##Data
+###What is data?
+]
+.right-column[
+Data are arrays (just like selections!). They can be represented in JavaScript in many different ways.
+
+```javascript
+// Data can be numbers
+var data = [1, 1, 2, 3, 5, 8];
+
+//Data can be objects
+var data = [
+  {x: 10.0, y: 9.14},
+  {x:  8.0, y: 8.14},
+  {x: 13.0, y: 8.74},
+  {x:  9.0, y: 8.77},
+  {x: 11.0, y: 9.26}
+];
+
+//Data can be external
+d3.csv("data.csv", function(error, data) {
+  ...
+});
+```
+]
+---
+layout: false
+.left-column[
+##Data
+###What is data?
+###Data binding
+]
+.right-column[
+D3 doesn’t provide a single method for creating multiple elements; instead, it provides a pattern for managing the mapping from data to elements. 
+
+So, to create multiple elements, we map (or bind) data to DOM elements. This mapping is the .highlight[data visualization] process in D3.
+
+```javascript
+var data = [32, 57, 112];
+var svg = d3.selectAll("svg")
+var circles = svg.selectAll("circles")
+    .data(data)
+    .append("circle")
+    .attr("cy", 60)
+    .attr("cx", function(d, i){ return([40, 80, 120][i]); })
+    .style("fill", "steelblue");
+
+circle.attr("r", function(d) { return Math.sqrt(d); });  
+```
+.circle_example_1[
+
+]
+]
+
+???
+
+This common snippet creates new elements from data. The first line may be surprising—why select <circle> elements if you know they don’t exist? Well, you’re telling D3 that you want them to correspond to data.
+This parsimonious approach means that when you need to handle update and exit in the future (for your interactive or dynamic visualizations), it’s a simple extension of a pattern you already know.
+---
+layout: false
+.left-column[
+##Data
+###What is data?
+###Data binding (enter)
+]
+.right-column[
+```javascript
+var data = [32, 57, 112];
+```
+Data is specified as an array of values. In the code above, the first number (the first datum, 32) is bound to the first circle (the first element, based on the order in which they are defined in the DOM), the second number is bound to the second circle, and so on.
+
+```javascript
+var circles = svg.selectAll("circles")
+    .data(data).enter()
+    .append("circle")
+    .attr("cy", 60)
+    .attr("cx", function(d, i){ return i * 100 + 30;; })
+    .style("fill", "steelblue");
+
+circle.attr("r", function(d) { return Math.sqrt(d); });  
+```
+After data is bound, it is accessible as the first argument to attribute and style functions. By convention, we typically use the name d to refer to bound data. The second (optional) argument to each function you can also use: the index of the element within its selection. Again by convention, this is often referred to as i.
+]
+---
+layout: false
+.left-column[
+##Data
+###What is data?
+###Data binding (enter)
+###Update
+]
+.right-column[
+```javascript
+var svg = d3.select("svg");
+
+var circle = svg.selectAll("circle")
+    .data([32, 57, 112, 293]);
+
+var circleEnter = circle.enter().append("circle");
+
+circleEnter.attr("cy", 60);
+circleEnter.attr("cx", function(d, i) { return i * 100 + 30; });
+circleEnter.attr("r", function(d) { return Math.sqrt(d); });
+```
+.circle_example_2[
+
+]
+What if we had four numbers to display, rather than three? We wouldn’t have enough circles, and we would need to create more elements to represent our data. 
+
+By joining data to elements, D3 puts any leftover data in the enter selection. With only three circles, a fourth number would be put in the enter selection.
+
+By appending to the enter selection, we can create new circles for any missing data. 
+
+]
+---
+layout: false
+.left-column[
+##Data
+###What is data?
+###Data binding (enter)
+###Update
+###Exit
+]
+.right-column[
+```javascript
+var circle = svg.selectAll("circle")
+    .data([32, 57]);
+
+circle.exit().remove();
+```
+.circle_example_3[
+
+]
+Opposite of `enter`, you have too many existing elements, and you want to remove some of them. You can select nodes and remove them manually, but the exit selection computed by a data join is more powerful.
+
+The exit selection contains the leftover elements for which there is no corresponding data. We use this selection to remove the exiting elements.
+
+]
+---
+layout: false
+.left-column[
+##Data
+###What is data?
+###Data binding (enter)
+###Update
+###Exit
+###All at once
+]
+.right-column[
+Putting everything together, consider the three possible outcomes that result from joining data to elements:
+
+1. enter - incoming elements, entering the stage.
+1. update - persistent elements, staying on stage.
+1. exit - outgoing elements, exiting the stage.
+
+```javascript
+var circle = svg.selectAll("circle")
+    .data([32, 57, 293], function(d) { return d; });
+
+circle.enter().append("circle")
+    .attr("cy", 60)
+    .attr("cx", function(d, i) { return i * 100 + 30; })
+    .attr("r", function(d) { return Math.sqrt(d); });
+
+circle.exit().remove();
+```
+You can control precisely which datum is bound to which element by specifying a key function to selection.data. By using the identity function, you can rebind the circles to new data while ensuring that existing circles are rebound to the same value in the new data, if any.
+
+]
+---
+layout: false
+.left-column[
+##Data
+###What is data?
+###Data binding (enter)
+###Update
+###Exit
+###All at once
+###Loading
+]
+.right-column[
+D3 provides several convenience functions for loading external data. We will only cover CSV (but [JSON](https://github.com/mbostock/d3/wiki/Requests#wiki-d3_json) and [TSV](https://github.com/mbostock/d3/wiki/Requests#wiki-d3_tsv) are also useful).
+
+**stocks.csv**
+```
+symbol,date,price
+S&P 500,Jan 2000,1394.46
+S&P 500,Feb 2000,1366.42
+S&P 500,Mar 2000,1498.58
+S&P 500,Apr 2000,1452.43
+S&P 500,May 2000,1420.6
+S&P 500,Jun 2000,1454.6
+S&P 500,Jul 2000,1430.83
+```
+```javascript
+var format = d3.time.format("%b %Y");
+
+d3.csv("stocks.csv", function(stocks) {
+  stocks.forEach(function(d) {
+    d.price = +d.price;
+    d.date = format.parse(d.date);
+  });
+});
+```
+CSV is untyped, so coercion from strings is required.
+
+Data is .highlight[asynchronous], meaning code that depends on data must be invoked via callback.
+]
+---
+layout: true
+class: inverse
+---
+#Your turn
+
+Navigate your (Chrome or Firefox) browser to https://jsfiddle.net/andeek/ej2avrzq/ and complete the following using .highlight[D3].
+
+1. Add a paragraph for each data point.
+1. Add text within the paragraphs which contain the data.
+1. Add a header element within the paragraphs which contains the index of the paragraph.
+1. Style each header to have font color blue.
+
+.footnote[
+Helpful resources:
+- https://bost.ocks.org/mike/selection/
+
+]
+---
+layout: true
+class: inverse
+---
+#Your turn (solution)
+
+<br/>
+<iframe width="100%" height="400" src="//jsfiddle.net/andeek/3gokh2bj/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+---
+layout: true
+class: center, middle, inverse
+---
+#Plot Elements
+
+---
+layout: false
+.left-column[
+##Plot Elements
+###Scales & Axes
+]
+.right-column[
+###Scales
+Scales are functions that map from an input domain to an output range. Quantitative scales have a continuous domain (real numbers or dates) and ordinal scales have a discrete domain (categories).
+
+Scales provide a way to map your data (.highlight[domain]) to a value that is useful in the visual realm (.highlight[range]).
+
+A scale’s **input domain** is the range of possible input data values. A scale’s **output range** is the range of possible output values, commonly used as display values in pixel units.
+
+```javascript
+var x = d3.scale.linear()
+    .domain([12, 24])
+    .range([0, 720]);
+
+x(18); // 360
+
+//also identity, log, and power scales exist (among others)
+```
+
+Use `d3.min` and `d3.max` (or `d3.extent`) to compute the domain.
+]
+---
+layout: false
+.left-column[
+##Plot Elements
+###Scales & Axes
+]
+.right-column[
+###Axes
+In D3, we are able to build a visualization from the ground up, which means we have to build our visualization from the ground up! (A blessing and a curse.)
+
+An axis can be thought of as a .highlight[label] for scales. D3 provides a convenient way to create this label.
+
+```javascript
+//Create the axis
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+    
+//Render the axis
+svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis);
+
+```
+
+```css
+/*Style the axis*/
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+```
+]
+---
+layout: false
+.left-column[
+##Plot Elements
+###Scales & Axes
+]
+.right-column[
+###Ticks
+As you would imagine, you can customize all aspects of your axes, starting with the rough number of ticks, using `ticks`.
+
+```javascript
+var x = d3.scale.linear()
+    .domain([12, 24])
+    .range([0, 720]);
+
+x.ticks(5); // [12, 14, 16, 18, 20, 22, 24]
+```
+
+The requested count is only a rough number.
+
+```javascript
+//Apply it to the axis
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom")
+    .ticks(5);
+```
+]
+---
+layout: false
+.left-column[
+##Plot Elements
+###Scales & Axes
+###SVG 
+]
+.right-column[
+###Coordinates
+Absolute positioning; the origin ⟨0,0⟩ is the .highlight[top-left] corner. 
+
+Since the origin is in the top-left rather than bottom-left, you often see y-scales with an inverted range (e.g., [height, 0]).
+.margin[
+
+]
+Alternatively, you can use `translate` to define a new origin (margins).
+]
+---
+layout: false
+.left-column[
+##Plot Elements
+###Scales & Axes
+###SVG 
+]
+.right-column[
+###Shapes (review)
+Position and size must be defined as attributes in SVG, rather than styles. Colors and opacity should be specified as CSS, however.
+```HTML
+<rect x="0" y="0" width="0" height="0" rx="0" ry="0">
+<circle cx="0" cy="0" r="0">
+<line x1="0" y1="0" x2="0" y2="0">
+<text x="0" y="0" dx="0" dy="0" text-anchor="start">
+```
+
+###Paths
+Paths are confusing to create by hand, so D3 has some native path generation functions.
+```javascript
+var x = d3.scale.linear(),
+    y = d3.scale.linear();
+
+var line = d3.svg.line()
+    .x(function(d) { return x(d.x); })
+    .y(function(d) { return y(d.y); });
+```
+Paths are very useful when dealing with .highlight[maps].
+
+]
+---
+layout: false
+.left-column[
+##Plot Elements
+###Scales & Axes
+###SVG 
+###Put it all together
+]
+.right-column[
+###Setup
+
+We can put together everything we've learned so far into making a bar chart (finally)!
+
+First, we need to setup our page to include D3, our script, and style sheet, and create a container for our chart.
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" 
+      href="styles/bar-chart.css">
+  </head>
+  <body>
+    <svg class="chart"></svg>
+    <script src="//d3js.org/d3.v3.min.js" charset="utf-8">
+    </script>
+    <script src="scripts/bar-chart.js">
+    </script>
+  </body>
+</html>
+```
+
+]
+---
+layout: false
+.left-column[
+##Plot Elements
+###Scales & Axes
+###SVG 
+###Put it all together
+]
+.right-column[
+###`data/fruits.csv`
+For this example, we want to work with external data to see how it works (`d3.csv`).  
+
+```
+fruit,count
+Orange,10
+Apple,7
+Pear,25
+Banana,1
+Kiwi,20
+Tomato,14
+```
+
+This is a (very) toy data set that we could conceivable want to make a .highlight[bar chart] out of.
+
+]
+---
+
+layout: false
+.left-column[
+##Plot Elements
+###Scales & Axes
+###SVG 
+###Put it all together
+]
+.right-column[
+###`scripts/bar-chart.js`
+
+Start by setting up our `svg` element with a specified width and height and create a scale for the `x` and `y` axes. 
+
+```javascript
+var margin = {top: 20, right: 30, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+    
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+    
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var chart = d3.select(".chart")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", 
+      "translate(" + margin.left + "," + margin.top + ")");
+
+```
+]
+
+???
+Note that we have not yet set the domains for our scales because we haven't loaded the data yet.
+
+
+---
+layout: false
+.left-column[
+##Plot Elements
+###Scales & Axes
+###SVG 
+###Put it all together
+]
+.right-column[
+###`scripts/bar-chart.js`
+Next we load in the data and perform the actions to create our chart .highlight[asynchronously] in the `d3.csv` function. The first things we do here are to attach the axes (and label!).
+
+```javascript
+d3.csv("data/fruits.csv", function(error, data) {
+  data.forEach(function(d) { d.count = +d.count; //format }); 
+  
+  x.domain(data.map(function(d) { return d.fruit; }));
+  y.domain([0, d3.max(data, function(d) { return d.count; })]);
+  
+  chart.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  chart.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Count");
+```
+...
+]
+---
+layout: false
+.left-column[
+##Plot Elements
+###Scales & Axes
+###SVG 
+###Put it all together
+]
+.right-column[
+###`scripts/bar-chart.js`
+Next (also within the data loading function) we create the bars (`rect`) and bind them to the data.
+```javascript  
+  var bar = chart.selectAll("g")
+      .data(data)
+    .enter().append("g")
+      .attr("transform", function(d) { 
+        return "translate(" + x(d.fruit) + ",0)"; 
+      });
+
+  chart.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.fruit); })
+      .attr("y", function(d) { return y(d.count); })
+      .attr("height", function(d) { return height - y(d.count); })
+      .attr("width", x.rangeBand());
+});
+```
+]
+
+---
+layout: false
+.left-column[
+##Plot Elements
+###Scales & Axes
+###SVG 
+###Put it all together
+]
+.right-column[
+###`css/bar-chart.css`
+Finally, we style the chart to be visually pleasing.
+```css
+.bar {
+  fill: steelblue;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+```
+]
+---
+layout: false
+.left-column[
+##Plot Elements
+###Scales & Axes
+###SVG 
+###Put it all together
+]
+.right-column[
+##Result
+.bar_chart[
+
+]
+]
+---
+layout: true
+class: inverse
+---
+#Your turn
+Navigate your (Chrome or Firefox) browser to https://jsfiddle.net/andeek/8yockvym/ and complete the following.
+
+1. Complete the code to create a scatter plot of `cty` (city MPG) by `hwy` (highway MPG) for the `mpg` dataset.
+  - Remember to include axes and labels.
+2. Color the points by `cyl` (number of cylinders).
+  - Advanced: add a legend.
+  - Advanced: size points by `cyl`.
+
+.footnote[
+Helpful resources:
+- http://alignedleft.com/tutorials/d3/making-a-scatterplot
+- https://bl.ocks.org/mbostock/3887118
+
+]
+---
+layout: true
+class: inverse
+---
+#Your turn (solution)
+
+<br/>
+<iframe width="100%" height="400" src="//jsfiddle.net/andeek/xxtx6vko/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+---
+layout: true
+class: center, middle, inverse
+---
+
+#Interactivity
+---
+layout: false
+.left-column[
+##Interactivity
+###Transitions
+]
+.right-column[
+Transitions are a form of .highlight[animation].
+
+D3’s `selection.transition` makes it easy to animate transitions when changing the DOM. Almost everything you can do to a selection of elements, you can also do to a transition, causing the change to be animated over time rather than instantaneous.
+
+For example,
+```javascript
+d3.select(".transition")
+    .transition()
+    .style("background-color", "red");
+```
+.transition[
+
+]
+
+Transitions can interpolate
+- numbers
+- colors
+- geometric transforms
+- strings with embedded numbers (e.g., "96px")
+- a custom written interpolator
+
+]
+---
+layout: false
+.left-column[
+##Interactivity
+###Transitions
+###Delay and duration
+]
+.right-column[
+Transitions in d3 are extremely versatile and can be customized with a lot of finesse without getting overly complex to write.
+
+After using the `transition` method, it’s possible to specify a value for *duration* and *delay*. 
+
+Duration is the number of milliseconds the transition will last, while delay is the number of milliseconds the system will wait before launching it.
+
+```javascript
+var circle = svg.append("circle")
+    .attr("cx", 60)
+    .attr("cy", 60)
+    .attr("r", 3);
+    
+circle.transition()
+    .attr("x", 320)
+    .duration(1000)
+    .delay(100);  
+```
+.transition2[
+
+]
+]
+---
+layout: false
+.left-column[
+##Interactivity
+###Transitions
+###Delay and duration
+###User interaction
+]
+.right-column[
+Animations can jazz up a graphic, but interacting with a user is a much more powerful experience. Understanding transitions is very important for creating interactive graphics with D3 because we will want to allow the user to trigger these transitions.
+
+Many times you'll want to start functions (or transitions) when a user clicks a link, scrolls, moves his or her mouse over an object, or does something else. These actions are called .highlight[events]. You can set specific functions to run when the user performs an event. These functions "listen" for an event and then initiate the function.
+
+Some commonly used events to listen for are
+- `mouseover`: The user moves his/her mouse over an object
+- `mouseout`: The user moves his/her mouse off of an object
+- `click`: The user clicks an object
+
+]
+---
+layout: false
+.left-column[
+##Interactivity
+###Transitions
+###Delay and duration
+###User interaction
+]
+.right-column[
+```javascript
+var circle = svg.append("circle")
+    .attr("cx", 15)
+    .attr("cy", 30)
+    .attr("r", 15);  
+
+circle.on("mouseover", function() {
+      d3.select(this).transition().duration(300)
+          .style("fill", "yellow");
+    })
+    .on("mouseout", function(){
+      d3.select(this).transition().duration(300)
+          .style("background-color", "red");
+    })
+    .on("click", function() {
+      alert("Hello!");
+    });
+```
+
+.interact[
+
+]
+
+A trick!
+```javascript
+circle.title("A trick!");
+```
+
+]
+
+---
+layout: true
+class: inverse
+---
+#Your turn
+Navigate your (Chrome or Firefox) browser to https://jsfiddle.net/andeek/????/ and complete the following.
+
+1. Add a tool tip to your `mpg` scatterplot containing information about the points.
+2. Add a behavior to the points such that they get larger if hovered over.
+
+---
+layout: true
+class: inverse
+---
+#Your turn (solution)
+
+---
+layout: true
+class: center, middle, inverse
+---
+
+#Maps
+---
+layout: false
+.left-column[
+##Maps
+]
+.right-column[
+
+Using [topojson](https://github.com/mbostock/topojson)
+
+```javascript
+var width = 600,
+    height = 400;
+
+var projection = d3.geo.albersUsa()
+  .scale(600)
+  .translate([width / 2, height / 2]);
+  
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select(this).append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+d3.json("data/us.json", function(error, topology) {
+  if (error) throw error;
+
+  svg.selectAll("path")
+      .data(topojson.feature(topology, topology.objects.counties).features)
+    .enter().append("path")
+      .attr("d", path);
+});
+```
+]
+---
+format: false
+.left-column[
+##Maps
+]
+.right-column[
+```css
+path {
+  fill: #ccc;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+
+path:hover {
+  fill: red;
+}
+```
+]
+
+---
+format: false
+.left-column[
+##Maps
+]
+.right-column[
+.us_map[
+
+
+]
+]
+
+
+---
+
+layout: false
+
+##Helpful links
+
+####Documentation
+- https://d3js.org/
+- https://github.com/mbostock/d3/wiki/API-Reference
+
+####Examples (with code)
+- http://bl.ocks.org/mbostock
+- https://bost.ocks.org/mike/map/ (more map ideas)
+
+####Tutorials
+- https://bost.ocks.org/mike/d3/workshop/
+- http://alignedleft.com/tutorials/d3/
+- http://christopheviau.com/d3_tutorial/
+- http://square.github.io/intro-to-d3/
+
+####Help!
+- https://groups.google.com/forum/#!forum/d3-js
+- http://stackoverflow.com/questions/tagged/d3.js
+
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script src="demos/whatis.js"></script>
+    <script src="demos/standards.js"></script>
+    <script src="demos/dom.js"></script>
+    <script src="demos/circle_example.js"></script>
+    <script src="demos/margin.js"></script>
+    <script src="demos/bar-chart.js"></script>
+    <script src="demos/transition.js"></script>
+    <script src="demos/interact.js"></script>
+    <script src="demos/us_map.js"></script>
+  </body>
+</html>
