@@ -426,7 +426,7 @@ layout: false
     color: red;
   }
 
-  /* Applied to all tags with the class "yellow" */
+  /* Applied to all tags with the class "blue" */
   .blue {
     background: blue;
   }
@@ -517,11 +517,11 @@ Get the `<button>` element with the class 'continue' and change its HTML to 'Nex
 $( "button.continue" ).html( "Next Step..." )
 ```
 ####Event Handling
-Show the `#banner-message` element that is hidden with  `display:none` in its CSS when any button in `#button-container` is clicked.
+Show the `#hidden-box` element that is hidden with `display:none` in its CSS when any button is clicked.
 
 ```javascript
-var hiddenBox = $( "#banner-message" );
-$( "#button-container button" ).on( "click", function( event ) {
+var hiddenBox = $("#hidden-box");
+$("button").on("click", function(event) {
   hiddenBox.show();
 });
 ```
@@ -567,7 +567,7 @@ layout: false
 ###Setup
 ]
 .right-column[
-This workshop will work heavily with examples and exercises hosted on http://jsfiddle.com, which allows us to focus on the machinations of D3, rather than the complication of hosting a site.
+This workshop will work heavily with examples and exercises hosted on http://jsfiddle.net, which allows us to focus on the machinations of D3, rather than the complication of hosting a site.
 
 However, it's important to know how to setup your project for hosting.
 Create a project folder to work within. Create a simple HTML page within your project folder named index.html. Additionally, create a folder to contain your JavaScript (D3) files. Your folder structure should now look something like this:
@@ -799,9 +799,9 @@ So, to create multiple elements, we map (or bind) data to DOM elements. This map
 ```javascript
 var data = [32, 57, 112];
 var svg = d3.selectAll("svg")
-var circles = svg.selectAll("circles")
+var circle = svg.selectAll("circle")
     .data(data)
-    .append("circle")
+  .append("circle")
     .attr("cy", 60)
     .attr("cx", function(d, i){ return([40, 80, 120][i]); })
     .style("fill", "steelblue");
@@ -831,9 +831,9 @@ var data = [32, 57, 112];
 Data is specified as an array of values. In the code above, the first number (the first datum, 32) is bound to the first circle (the first element, based on the order in which they are defined in the DOM), the second number is bound to the second circle, and so on.
 
 ```javascript
-var circles = svg.selectAll("circles")
+var circle = svg.selectAll("circle")
     .data(data).enter()
-    .append("circle")
+  .append("circle")
     .attr("cy", 60)
     .attr("cx", function(d, i){ return i * 100 + 30;; })
     .style("fill", "steelblue");
